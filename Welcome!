@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Artist Reward Program - Professional Demo Platform</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .section-spacing {
+      margin-bottom: 3rem;
+    }
+    .card-shadow {
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    .tier-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .tier-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    }
+    .calculator-input {
+      border: 2px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 12px;
+      font-size: 16px;
+      transition: border-color 0.3s ease;
+    }
+    .calculator-input:focus {
+      outline: none;
+      border-color: #667eea;
+    }
+    .step-number {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    .phase-card {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      border: 2px solid #cbd5e0;
+      transition: all 0.3s ease;
+    }
+    .phase-card:hover {
+      border-color: #667eea;
+      transform: translateY(-3px);
+    }
+    .phase-number {
+      background: linear-gradient(45deg, #667eea, #764ba2);
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.5rem;
+      margin: 0 auto 1rem auto;
+    }
+    .reward-highlight {
+      background: linear-gradient(45deg, #10b981, #059669);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 25px;
+      font-weight: bold;
+      display: inline-block;
+    }
+    .faq-item {
+      border-bottom: 1px solid #e5e7eb;
+      padding: 1.5rem 0;
+    }
+    .chart-container {
+      height: 400px !important;
+      position: relative;
+    }
+     {
+      body { 
+        font-size: 12px; 
+        line-height: 1.4;
+      }
+      .no-print { 
+        display: none; 
+      }
+      .section-spacing {
+        margin-bottom: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50">
+  <!-- Header -->
+  <header class="gradient-bg text-white py-8">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div>
+          <h1 id="main-title" class="text-4xl md:text-5xl font-bold mb-2">Artist Reward Program</h1>
+          <p id="main-subtitle" class="text-xl opacity-90">Empowering artists through performance-based rewards</p>
+        </div>
+        <div class="mt-4 md:mt-0">
+          <select onchange="changeLang(this.value)" class="bg-white text-gray-800 px-4 py-2 rounded-lg font-medium no-print">
+            <option value="en">🇺🇸 English</option>
+            <option value="zh">🇨🇳 中文</option>
+            <option value="es">🇪🇸 Español</option>
+            <option value="fr">🇫🇷 Français</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container mx-auto px-4 py-8">
+
+    <!-- Three-Phase Collaboration Process -->
+    <section class="section-spacing">
+      <div class="text-center mb-8">
+        <h2 id="phases-title" class="text-3xl font-bold text-gray-800 mb-4">Three-Phase Collaboration Process</h2>
+        <p id="phases-desc" class="text-gray-600 max-w-3xl mx-auto">Our structured approach ensures artists are rewarded at every step of their creative journey</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 mb-12">
+        <!-- Phase 1 -->
+        <div class="phase-card rounded-xl p-8 text-center">
+          <div class="phase-number">1</div>
+          <h3 id="phase1-title" class="text-2xl font-bold text-gray-800 mb-4">Initial Approval</h3>
+          <div class="mb-6">
+            <div class="text-4xl mb-2">📸</div>
+            <p id="phase1-requirement" class="text-gray-700 mb-4">Submit at least <strong>30 approved images</strong></p>
+            <div class="reward-highlight">
+              <i class="fas fa-gift mr-2"></i>
+              <span id="phase1-reward">Instant $30 Reward</span>
+            </div>
+          </div>
+          <p id="phase1-desc" class="text-sm text-gray-600">Build your foundation with quality artwork submission and immediate recognition</p>
+        </div>
+
+        <!-- Phase 2 -->
+        <div class="phase-card rounded-xl p-8 text-center">
+          <div class="phase-number">2</div>
+          <h3 id="phase2-title" class="text-2xl font-bold text-gray-800 mb-4">Sales Milestone</h3>
+          <div class="mb-6">
+            <div class="text-4xl mb-2">💰</div>
+            <p id="phase2-requirement" class="text-gray-700 mb-4">Reach <strong>$100 in cumulative sales</strong></p>
+            <div class="reward-highlight">
+              <i class="fas fa-trophy mr-2"></i>
+              <span id="phase2-reward">$20 Milestone Bonus</span>
+            </div>
+            <p id="phase2-validity" class="text-xs text-gray-500 mt-2">Valid for 6 months</p>
+          </div>
+          <p id="phase2-desc" class="text-sm text-gray-600">Achieve your first sales goal and unlock ongoing monthly rewards</p>
+        </div>
+
+        <!-- Phase 3 -->
+        <div class="phase-card rounded-xl p-8 text-center">
+          <div class="phase-number">3</div>
+          <h3 id="phase3-title" class="text-2xl font-bold text-gray-800 mb-4">Monthly Rewards</h3>
+          <div class="mb-6">
+            <div class="text-4xl mb-2">🎯</div>
+            <p id="phase3-requirement" class="text-gray-700 mb-4">Ongoing <strong>monthly performance</strong> rewards</p>
+            <div class="reward-highlight">
+              <i class="fas fa-calendar-alt mr-2"></i>
+              <span id="phase3-reward">$30-$150/month</span>
+            </div>
+          </div>
+          <p id="phase3-desc" class="text-sm text-gray-600">Sustained success with regular monthly rewards based on sales performance</p>
+        </div>
+      </div>
+
+      <!-- Phase Progress Timeline -->
+      <div class="bg-white rounded-xl p-8 card-shadow">
+        <h3 id="timeline-title" class="text-2xl font-bold text-gray-800 mb-6 text-center">Your Journey Timeline</h3>
+        <div class="relative">
+          <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-gradient-to-b from-blue-500 to-purple-500 rounded"></div>
+          
+          <div class="space-y-8">
+            <div class="flex items-center">
+              <div class="flex-1 text-right pr-8">
+                <h4 id="timeline1-title" class="font-bold text-gray-800">Start Creating</h4>
+                <p id="timeline1-desc" class="text-sm text-gray-600">Submit your first 30 high-quality artworks</p>
+              </div>
+              <div class="w-4 h-4 bg-blue-500 rounded-full relative z-10"></div>
+              <div class="flex-1 pl-8">
+                <div class="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium inline-block">
+                  <span id="timeline1-reward">Immediate $30</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex items-center">
+              <div class="flex-1 text-right pr-8">
+                <div class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium inline-block">
+                  <span id="timeline2-reward">$20 Bonus</span>
+                </div>
+              </div>
+              <div class="w-4 h-4 bg-green-500 rounded-full relative z-10"></div>
+              <div class="flex-1 pl-8">
+                <h4 id="timeline2-title" class="font-bold text-gray-800">Reach $100 Sales</h4>
+                <p id="timeline2-desc" class="text-sm text-gray-600">Achieve your first major milestone</p>
+              </div>
+            </div>
+
+            <div class="flex items-center">
+              <div class="flex-1 text-right pr-8">
+                <h4 id="timeline3-title" class="font-bold text-gray-800">Monthly Success</h4>
+                <p id="timeline3-desc" class="text-sm text-gray-600">Consistent rewards based on performance</p>
+              </div>
+              <div class="w-4 h-4 bg-purple-500 rounded-full relative z-10"></div>
+              <div class="flex-1 pl-8">
+                <div class="bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm font-medium inline-block">
+                  <span id="timeline3-reward">$30-$150/month</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reward Tiers Section -->
+    <section class="section-spacing">
+      <div class="text-center mb-8">
+        <h2 id="tiers-title" class="text-3xl font-bold text-gray-800 mb-4">Phase 3: Monthly Reward Tiers</h2>
+        <p id="tiers-desc" class="text-gray-600 max-w-2xl mx-auto">Monthly rewards calculated by calendar month based on sales performance. Maximum 500 images per artist account.</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="tier-card bg-white rounded-xl p-6 card-shadow">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-seedling text-2xl text-gray-500"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Starter</h3>
+            <p class="text-2xl font-bold text-gray-600 mb-2">$0 - $199</p>
+            <div class="text-3xl font-bold text-red-500">$0</div>
+            <p id="tier1-desc" class="text-sm text-gray-500 mt-2">Build your portfolio</p>
+          </div>
+        </div>
+
+        <div class="tier-card bg-white rounded-xl p-6 card-shadow">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-star text-2xl text-blue-500"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Bronze</h3>
+            <p class="text-2xl font-bold text-gray-600 mb-2">$200 - $499</p>
+            <div class="text-3xl font-bold text-blue-500">$30</div>
+            <p id="tier2-desc" class="text-sm text-gray-500 mt-2">Growing artist</p>
+          </div>
+        </div>
+
+        <div class="tier-card bg-white rounded-xl p-6 card-shadow">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-medal text-2xl text-yellow-500"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Silver</h3>
+            <p class="text-2xl font-bold text-gray-600 mb-2">$500 - $999</p>
+            <div class="text-3xl font-bold text-yellow-500">$80</div>
+            <p id="tier3-desc" class="text-sm text-gray-500 mt-2">Established artist</p>
+          </div>
+        </div>
+
+        <div class="tier-card bg-white rounded-xl p-6 card-shadow">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+              <i class="fas fa-crown text-2xl text-purple-500"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Gold</h3>
+            <p class="text-2xl font-bold text-gray-600 mb-2">$1000+</p>
+            <div class="text-3xl font-bold text-purple-500">$150</div>
+            <p id="tier4-desc" class="text-sm text-gray-500 mt-2">Top performer</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Chart -->
+      <div class="bg-white rounded-xl p-6 card-shadow">
+        <h3 id="chart-title" class="text-xl font-bold text-gray-800 mb-4 text-center">Monthly Rewards Visualization</h3>
+        <div class="chart-container" style="height: 400px;">
+          <canvas id="rewardChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Calculator Section -->
+    <section class="section-spacing">
+      <div class="bg-white rounded-xl p-8 card-shadow">
+        <h2 id="calc-title" class="text-3xl font-bold text-gray-800 mb-6 text-center">Revenue Calculator</h2>
+        <div class="max-w-md mx-auto">
+          <div class="mb-4">
+            <label id="calc-label" class="block text-sm font-medium text-gray-700 mb-2">Monthly Sales (USD)</label>
+            <input type="number" id="salesInput" class="calculator-input w-full" placeholder="Enter your monthly sales" oninput="calculateReward()">
+          </div>
+          <div class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-lg p-4 text-center">
+            <p id="calc-result-label" class="text-sm text-gray-600 mb-1">Your Monthly Reward:</p>
+            <div id="rewardResult" class="text-3xl font-bold text-purple-600">$0</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Application Process -->
+    <section class="section-spacing">
+      <div class="text-center mb-8">
+        <h2 id="process-title" class="text-3xl font-bold text-gray-800 mb-4">How to Join</h2>
+        <p id="process-desc" class="text-gray-600 max-w-2xl mx-auto">Simple steps to become part of our artist community</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="step-number mx-auto mb-4">1</div>
+          <h3 id="step1-title" class="text-xl font-bold text-gray-800 mb-3">Create Account</h3>
+          <p id="step1-desc" class="text-gray-600">Sign up with your portfolio and artist information</p>
+        </div>
+
+        <div class="text-center">
+          <div class="step-number mx-auto mb-4">2</div>
+          <h3 id="step2-title" class="text-xl font-bold text-gray-800 mb-3">Upload Artwork</h3>
+          <p id="step2-desc" class="text-gray-600">Submit at least 30 high-quality images for initial approval</p>
+        </div>
+
+        <div class="text-center">
+          <div class="step-number mx-auto mb-4">3</div>
+          <h3 id="step3-title" class="text-xl font-bold text-gray-800 mb-3">Start Earning</h3>
+          <p id="step3-desc" class="text-gray-600">Begin your three-phase journey and start earning rewards immediately</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Success Stories -->
+    <section class="section-spacing">
+      <div class="text-center mb-8">
+        <h2 id="success-title" class="text-3xl font-bold text-gray-800 mb-4">Success Stories</h2>
+        <p id="success-desc" class="text-gray-600 max-w-2xl mx-auto">Real artists, real results</p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white rounded-xl p-6 card-shadow">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
+              SA
+            </div>
+            <div class="ml-3">
+              <h4 class="font-bold text-gray-800">Sarah A.</h4>
+              <p class="text-sm text-gray-600">Digital Artist</p>
+            </div>
+          </div>
+          <p id="story1" class="text-gray-600 text-sm">"The three-phase system was perfect! Got my $30 instantly after approval, then $20 bonus at $100 sales. Now I consistently earn $150 monthly rewards."</p>
+          <div class="mt-4 text-purple-600 font-bold">Monthly: $1,200+ sales</div>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 card-shadow">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center text-white font-bold">
+              MK
+            </div>
+            <div class="ml-3">
+              <h4 class="font-bold text-gray-800">Mike K.</h4>
+              <p class="text-sm text-gray-600">Illustrator</p>
+            </div>
+          </div>
+          <p id="story2" class="text-gray-600 text-sm">"Loved getting rewarded from day one. The milestone rewards kept me motivated to reach each phase. Now in phase 3 earning consistently!"</p>
+          <div class="mt-4 text-purple-600 font-bold">Monthly: $800+ sales</div>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 card-shadow">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold">
+              LT
+            </div>
+            <div class="ml-3">
+              <h4 class="font-bold text-gray-800">Lisa T.</h4>
+              <p class="text-sm text-gray-600">Concept Artist</p>
+            </div>
+          </div>
+          <p id="story3" class="text-gray-600 text-sm">"The structured approach helped me plan my submissions strategically. Each phase built on the previous one perfectly."</p>
+          <div class="mt-4 text-purple-600 font-bold">Monthly: $650+ sales</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="section-spacing">
+      <div class="bg-white rounded-xl p-8 card-shadow">
+        <h2 id="faq-title" class="text-3xl font-bold text-gray-800 mb-8 text-center">Frequently Asked Questions</h2>
+        <div class="max-w-3xl mx-auto">
+          <div class="faq-item">
+            <h3 id="faq1-q" class="font-bold text-gray-800 text-lg mb-2">How do the three phases work?</h3>
+            <p id="faq1-a" class="text-gray-600">Phase 1: Submit 30+ approved images for $30 instant reward. Phase 2: Reach $100 sales for $20 bonus (6-month validity). Phase 3: Monthly rewards based on performance tiers.</p>
+          </div>
+          
+          <div class="faq-item">
+            <h3 id="faq2-q" class="font-bold text-gray-800 text-lg mb-2">When are rewards paid out?</h3>
+            <p id="faq2-a" class="text-gray-600">Phase 1 rewards are instant upon approval. Phase 2 rewards are paid when milestone is reached. Phase 3 rewards are calculated monthly and paid by the 5th of the following month.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3 id="faq3-q" class="font-bold text-gray-800 text-lg mb-2">What counts towards the 500 image limit?</h3>
+            <p id="faq3-a" class="text-gray-600">The limit includes all active images in your portfolio across all phases. You can remove or replace images at any time, but the total cannot exceed 500.</p>
+          </div>
+
+          <div class="faq-item">
+            <h3 id="faq4-q" class="font-bold text-gray-800 text-lg mb-2">How long does Phase 2 validity last?</h3>
+            <p id="faq4-a" class="text-gray-600">Phase 2 milestone reward is valid for 6 months from when you complete Phase 1. You must reach $100 in cumulative sales within this period to earn the $20 bonus.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="section-spacing">
+      <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl p-8 text-center">
+        <h2 id="contact-title" class="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+        <p id="contact-desc" class="text-xl mb-8 opacity-90">Join thousands of artists already earning with our three-phase reward program</p>
+        
+        <div class="grid md:grid-cols-3 gap-6 text-center max-w-4xl mx-auto">
+          <div>
+            <i class="fas fa-envelope text-3xl mb-3"></i>
+            <h3 id="contact-email-label" class="font-bold mb-2">Email Support</h3>
+            <p>aria@metaleks.com</p>
+          </div>
+          
+          <div>
+            <i class="fas fa-comments text-3xl mb-3"></i>
+            <h3 id="contact-chat-label" class="font-bold mb-2">Live Chat</h3>
+            <p id="contact-chat-desc">Available 24/7 for artist support</p>
+          </div>
+          
+          <div>
+            <i class="fas fa-book text-3xl mb-3"></i>
+            <h3 id="contact-guide-label" class="font-bold mb-2">Getting Started Guide</h3>
+            <p id="contact-guide-desc">Comprehensive documentation</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-gray-800 text-white py-8">
+    <div class="container mx-auto px-4 text-center">
+      <p id="footer-text">© 2024 Artist Reward Program. Empowering creativity through structured rewards and fair compensation.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Multi-language data
+    const translations = {
+      en: {
+        'main-title': 'Artist Reward Program',
+        'main-subtitle': 'Empowering artists through performance-based rewards',
+        'phases-title': 'Three-Phase Collaboration Process',
+        'phases-desc': 'Our structured approach ensures artists are rewarded at every step of their creative journey',
+        'phase1-title': 'Initial Approval',
+        'phase1-requirement': 'Submit at least 30 approved images',
+        'phase1-reward': 'Instant $30 Reward',
+        'phase1-desc': 'Build your foundation with quality artwork submission and immediate recognition',
+        'phase2-title': 'Sales Milestone', 
+        'phase2-requirement': 'Reach $100 in cumulative sales',
+        'phase2-reward': '$20 Milestone Bonus',
+        'phase2-validity': 'Valid for 6 months',
+        'phase2-desc': 'Achieve your first sales goal and unlock ongoing monthly rewards',
+        'phase3-title': 'Monthly Rewards',
+        'phase3-requirement': 'Ongoing monthly performance rewards',
+        'phase3-reward': '$30-$150/month',
+        'phase3-desc': 'Sustained success with regular monthly rewards based on sales performance',
+        'timeline-title': 'Your Journey Timeline',
+        'timeline1-title': 'Start Creating',
+        'timeline1-desc': 'Submit your first 30 high-quality artworks',
+        'timeline1-reward': 'Immediate $30',
+        'timeline2-title': 'Reach $100 Sales',
+        'timeline2-desc': 'Achieve your first major milestone',
+        'timeline2-reward': '$20 Bonus',
+        'timeline3-title': 'Monthly Success',
+        'timeline3-desc': 'Consistent rewards based on performance',
+        'timeline3-reward': '$30-$150/month',
+        'tiers-title': 'Phase 3: Monthly Reward Tiers',
+        'tiers-desc': 'Monthly rewards calculated by calendar month based on sales performance. Maximum 500 images per artist account.',
+        'tier1-desc': 'Build your portfolio',
+        'tier2-desc': 'Growing artist',
+        'tier3-desc': 'Established artist', 
+        'tier4-desc': 'Top performer',
+        'chart-title': 'Monthly Rewards Visualization',
+        'calc-title': 'Revenue Calculator',
+        'calc-label': 'Monthly Sales (USD)',
+        'calc-result-label': 'Your Monthly Reward:',
+        'process-title': 'How to Join',
+        'process-desc': 'Simple steps to become part of our artist community',
+        'step1-title': 'Create Account',
+        'step1-desc': 'Sign up with your portfolio and artist information',
+        'step2-title': 'Upload Artwork',
+        'step2-desc': 'Submit at least 30 high-quality images for initial approval',
+        'step3-title': 'Start Earning',
+        'step3-desc': 'Begin your three-phase journey and start earning rewards immediately',
+        'success-title': 'Success Stories',
+        'success-desc': 'Real artists, real results',
+        'story1': '"The three-phase system was perfect! Got my $30 instantly after approval, then $20 bonus at $100 sales. Now I consistently earn $150 monthly rewards."',
+        'story2': '"Loved getting rewarded from day one. The milestone rewards kept me motivated to reach each phase. Now in phase 3 earning consistently!"',
+        'story3': '"The structured approach helped me plan my submissions strategically. Each phase built on the previous one perfectly."',
+        'faq-title': 'Frequently Asked Questions',
+        'faq1-q': 'How do the three phases work?',
+        'faq1-a': 'Phase 1: Submit 30+ approved images for $30 instant reward. Phase 2: Reach $100 sales for $20 bonus (6-month validity). Phase 3: Monthly rewards based on performance tiers.',
+        'faq2-q': 'When are rewards paid out?',
+        'faq2-a': 'Phase 1 rewards are instant upon approval. Phase 2 rewards are paid when milestone is reached. Phase 3 rewards are calculated monthly and paid by the 5th of the following month.',
+        'faq3-q': 'What counts towards the 500 image limit?',
+        'faq3-a': 'The limit includes all active images in your portfolio across all phases. You can remove or replace images at any time, but the total cannot exceed 500.',
+        'faq4-q': 'How long does Phase 2 validity last?',
+        'faq4-a': 'Phase 2 milestone reward is valid for 6 months from when you complete Phase 1. You must reach $100 in cumulative sales within this period to earn the $20 bonus.',
+        'contact-title': 'Ready to Get Started?',
+        'contact-desc': 'Join thousands of artists already earning with our three-phase reward program',
+        'contact-email-label': 'Email Support',
+        'contact-chat-label': 'Live Chat',
+        'contact-chat-desc': 'Available 24/7 for artist support',
+        'contact-guide-label': 'Getting Started Guide',
+        'contact-guide-desc': 'Comprehensive documentation',
+        'footer-text': '© 2024 Artist Reward Program. Empowering creativity through structured rewards and fair compensation.'
+      },
+      zh: {
+        'main-title': '画师激励计划',
+        'main-subtitle': '通过绩效奖励赋能艺术创作者',
+        'phases-title': '三阶段合作流程',
+        'phases-desc': '我们的结构化方法确保画师在创意旅程的每一步都获得奖励',
+        'phase1-title': '初步审核',
+        'phase1-requirement': '提交至少30张被审核通过的图片',
+        'phase1-reward': '立即获得30美元奖励',
+        'phase1-desc': '通过优质作品提交建立基础，立即获得认可',
+        'phase2-title': '销售里程碑',
+        'phase2-requirement': '累计销售额达到100美元',
+        'phase2-reward': '20美元里程碑奖金',
+        'phase2-validity': '有效期6个月',
+        'phase2-desc': '达成首个销售目标，解锁持续月度奖励',
+        'phase3-title': '月度奖励',
+        'phase3-requirement': '持续的月度表现奖励',
+        'phase3-reward': '每月30-150美元',
+        'phase3-desc': '基于销售表现的定期月度奖励，持续成功',
+        'timeline-title': '您的旅程时间线',
+        'timeline1-title': '开始创作',
+        'timeline1-desc': '提交您的前30件高质量艺术作品',
+        'timeline1-reward': '立即获得30美元',
+        'timeline2-title': '达到100美元销售额',
+        'timeline2-desc': '实现您的第一个重要里程碑',
+        'timeline2-reward': '20美元奖金',
+        'timeline3-title': '月度成功',
+        'timeline3-desc': '基于表现的持续奖励',
+        'timeline3-reward': '每月30-150美元',
+        'tiers-title': '第三阶段：月度奖励等级',
+        'tiers-desc': '根据销售表现按日历月计算月度奖励。每位画师账户最多上传500张图片。',
+        'tier1-desc': '构建作品集',
+        'tier2-desc': '成长型画师',
+        'tier3-desc': '资深画师',
+        'tier4-desc': '顶级表现者',
+        'chart-title': '月度奖励可视化',
+        'calc-title': '收益计算器',
+        'calc-label': '月销售额（美元）',
+        'calc-result-label': '您的月度奖励：',
+        'process-title': '如何加入',
+        'process-desc': '加入我们画师社区的简单步骤',
+        'step1-title': '创建账户',
+        'step1-desc': '用您的作品集和画师信息注册',
+        'step2-title': '上传作品',
+        'step2-desc': '提交至少30张高质量图片进行初步审核',
+        'step3-title': '开始赚钱',
+        'step3-desc': '开始您的三阶段旅程，立即开始获得奖励',
+        'success-title': '成功案例',
+        'success-desc': '真实画师，真实成果',
+        'story1': '"三阶段系统太棒了！审核通过后立即获得30美元，销售达到100美元时又得到20美元奖金。现在我持续获得150美元的月度奖励。"',
+        'story2': '"从第一天就获得奖励真的很棒。里程碑奖励激励我达到每个阶段。现在在第三阶段持续获得收益！"',
+        'story3': '"结构化的方法帮助我战略性地规划提交作品。每个阶段都完美地建立在前一个阶段之上。"',
+        'faq-title': '常见问题',
+        'faq1-q': '三个阶段是如何运作的？',
+        'faq1-a': '第一阶段：提交30+张被审核通过的图片获得30美元即时奖励。第二阶段：达到100美元销售额获得20美元奖金（6个月有效期）。第三阶段：基于表现等级的月度奖励。',
+        'faq2-q': '奖励何时支付？',
+        'faq2-a': '第一阶段奖励在审核通过后立即支付。第二阶段奖励在达到里程碑时支付。第三阶段奖励每月计算，次月5日前支付。',
+        'faq3-q': '500张图片限制包括什么？',
+        'faq3-a': '限制包括您作品集中所有阶段的活跃图片。您可以随时删除或替换图片，但总数不能超过500张。',
+        'faq4-q': '第二阶段的有效期有多长？',
+        'faq4-a': '第二阶段里程碑奖励从完成第一阶段起6个月内有效。您必须在此期间内达到100美元累计销售额才能获得20美元奖金。',
+        'contact-title': '准备开始了吗？',
+        'contact-desc': '加入数千名已通过我们三阶段奖励计划获得收益的画师',
+        'contact-email-label': '邮件支持',
+        'contact-chat-label': '在线聊天',
+        'contact-chat-desc': '7x24小时画师支持',
+        'contact-guide-label': '入门指南',
+        'contact-guide-desc': '综合性文档',
+        'footer-text': '© 2024 画师激励计划。通过结构化奖励和公平报酬赋能创意。'
+      },
+      es: {
+        'main-title': 'Programa de Recompensas para Artistas',
+        'main-subtitle': 'Empoderando artistas a través de recompensas basadas en rendimiento',
+        'phases-title': 'Proceso de Colaboración en Tres Fases',
+        'phases-desc': 'Nuestro enfoque estructurado asegura que los artistas sean recompensados en cada paso de su viaje creativo',
+        'phase1-title': 'Aprobación Inicial',
+        'phase1-requirement': 'Enviar al menos 30 imágenes aprobadas',
+        'phase1-reward': 'Recompensa Instantánea de $30',
+        'phase1-desc': 'Construye tu base con envío de arte de calidad y reconocimiento inmediato',
+        'phase2-title': 'Hito de Ventas',
+        'phase2-requirement': 'Alcanzar $100 en ventas acumulativas',
+        'phase2-reward': 'Bonus de Hito $20',
+        'phase2-validity': 'Válido por 6 meses',
+        'phase2-desc': 'Alcanza tu primer objetivo de ventas y desbloquea recompensas mensuales continuas',
+        'phase3-title': 'Recompensas Mensuales',
+        'phase3-requirement': 'Recompensas continuas de rendimiento mensual',
+        'phase3-reward': '$30-$150/mes',
+        'phase3-desc': 'Éxito sostenido con recompensas mensuales regulares basadas en rendimiento de ventas',
+        'timeline-title': 'Tu Cronología del Viaje',
+        'timeline1-title': 'Comenzar a Crear',
+        'timeline1-desc': 'Envía tus primeras 30 obras de arte de alta calidad',
+        'timeline1-reward': '$30 Inmediatos',
+        'timeline2-title': 'Alcanzar $100 en Ventas',
+        'timeline2-desc': 'Logra tu primer hito importante',
+        'timeline2-reward': 'Bonus $20',
+        'timeline3-title': 'Éxito Mensual',
+        'timeline3-desc': 'Recompensas consistentes basadas en rendimiento',
+        'timeline3-reward': '$30-$150/mes',
+        'tiers-title': 'Fase 3: Niveles de Recompensa Mensual',
+        'tiers-desc': 'Recompensas mensuales calculadas por mes calendario basadas en rendimiento de ventas. Máximo 500 imágenes por cuenta de artista.',
+        'tier1-desc': 'Construye tu portafolio',
+        'tier2-desc': 'Artista en crecimiento',
+        'tier3-desc': 'Artista establecido',
+        'tier4-desc': 'Mejor rendimiento',
+        'chart-title': 'Visualización de Recompensas Mensuales',
+        'calc-title': 'Calculadora de Ingresos',
+        'calc-label': 'Ventas Mensuales (USD)',
+        'calc-result-label': 'Tu Recompensa Mensual:',
+        'process-title': 'Cómo Unirse',
+        'process-desc': 'Pasos simples para formar parte de nuestra comunidad de artistas',
+        'step1-title': 'Crear Cuenta',
+        'step1-desc': 'Regístrate con tu portafolio e información de artista',
+        'step2-title': 'Subir Obras',
+        'step2-desc': 'Envía al menos 30 imágenes de alta calidad para aprobación inicial',
+        'step3-title': 'Comenzar a Ganar',
+        'step3-desc': 'Comienza tu viaje de tres fases y empieza a ganar recompensas inmediatamente',
+        'success-title': 'Historias de Éxito',
+        'success-desc': 'Artistas reales, resultados reales',
+        'story1': '"¡El sistema de tres fases fue perfecto! Obtuve mis $30 instantáneamente después de la aprobación, luego $20 de bonus en $100 de ventas. Ahora gano consistentemente $150 en recompensas mensuales."',
+        'story2': '"Me encantó ser recompensado desde el primer día. Las recompensas de hitos me mantuvieron motivado para alcanzar cada fase. ¡Ahora en la fase 3 ganando consistentemente!"',
+        'story3': '"El enfoque estructurado me ayudó a planificar mis envíos estratégicamente. Cada fase se construyó perfectamente sobre la anterior."',
+        'faq-title': 'Preguntas Frecuentes',
+        'faq1-q': '¿Cómo funcionan las tres fases?',
+        'faq1-a': 'Fase 1: Enviar 30+ imágenes aprobadas para recompensa instantánea de $30. Fase 2: Alcanzar $100 en ventas para bonus de $20 (validez de 6 meses). Fase 3: Recompensas mensuales basadas en niveles de rendimiento.',
+        'faq2-q': '¿Cuándo se pagan las recompensas?',
+        'faq2-a': 'Las recompensas de Fase 1 son instantáneas al aprobarse. Las recompensas de Fase 2 se pagan cuando se alcanza el hito. Las recompensas de Fase 3 se calculan mensualmente y se pagan antes del día 5 del mes siguiente.',
+        'faq3-q': '¿Qué cuenta para el límite de 500 imágenes?',
+        'faq3-a': 'El límite incluye todas las imágenes activas en tu portafolio a través de todas las fases. Puedes eliminar o reemplazar imágenes en cualquier momento, pero el total no puede exceder 500.',
+        'faq4-q': '¿Cuánto dura la validez de la Fase 2?',
+        'faq4-a': 'La recompensa de hito de Fase 2 es válida por 6 meses desde que completas la Fase 1. Debes alcanzar $100 en ventas acumulativas dentro de este período para ganar el bonus de $20.',
+        'contact-title': '¿Listo para Comenzar?',
+        'contact-desc': 'Únete a miles de artistas que ya están ganando con nuestro programa de recompensas de tres fases',
+        'contact-email-label': 'Soporte por Email',
+        'contact-chat-label': 'Chat en Vivo',
+        'contact-chat-desc': 'Disponible 24/7 para soporte de artistas',
+        'contact-guide-label': 'Guía de Inicio',
+        'contact-guide-desc': 'Documentación integral',
+        'footer-text': '© 2024 Programa de Recompensas para Artistas. Empoderando la creatividad a través de recompensas estructuradas y compensación justa.'
+      },
+      fr: {
+        'main-title': 'Programme de Récompenses des Artistes',
+        'main-subtitle': 'Autonomiser les artistes grâce à des récompenses basées sur la performance',
+        'phases-title': 'Processus de Collaboration en Trois Phases',
+        'phases-desc': 'Notre approche structurée garantit que les artistes sont récompensés à chaque étape de leur parcours créatif',
+        'phase1-title': 'Approbation Initiale',
+        'phase1-requirement': 'Soumettre au moins 30 images approuvées',
+        'phase1-reward': 'Récompense Instantanée de $30',
+        'phase1-desc': 'Construisez votre fondation avec soumission d\'art de qualité et reconnaissance immédiate',
+        'phase2-title': 'Jalon de Ventes',
+        'phase2-requirement': 'Atteindre $100 en ventes cumulatives',
+        'phase2-reward': 'Bonus de Jalon $20',
+        'phase2-validity': 'Valide pour 6 mois',
+        'phase2-desc': 'Atteignez votre premier objectif de ventes et débloquez des récompenses mensuelles continues',
+        'phase3-title': 'Récompenses Mensuelles',
+        'phase3-requirement': 'Récompenses continues de performance mensuelle',
+        'phase3-reward': '$30-$150/mois',
+        'phase3-desc': 'Succès soutenu avec récompenses mensuelles régulières basées sur la performance des ventes',
+        'timeline-title': 'Votre Chronologie de Parcours',
+        'timeline1-title': 'Commencer à Créer',
+        'timeline1-desc': 'Soumettez vos 30 premières œuvres d\'art de haute qualité',
+        'timeline1-reward': '$30 Immédiats',
+        'timeline2-title': 'Atteindre $100 en Ventes',
+        'timeline2-desc': 'Réalisez votre premier jalon important',
+        'timeline2-reward': 'Bonus $20',
+        'timeline3-title': 'Succès Mensuel',
+        'timeline3-desc': 'Récompenses cohérentes basées sur la performance',
+        'timeline3-reward': '$30-$150/mois',
+        'tiers-title': 'Phase 3: Niveaux de Récompense Mensuelle',
+        'tiers-desc': 'Récompenses mensuelles calculées par mois calendaire basées sur la performance des ventes. Maximum 500 images par compte d\'artiste.',
+        'tier1-desc': 'Construisez votre portfolio',
+        'tier2-desc': 'Artiste en croissance',
+        'tier3-desc': 'Artiste établi',
+        'tier4-desc': 'Meilleure performance',
+        'chart-title': 'Visualisation des Récompenses Mensuelles',
+        'calc-title': 'Calculateur de Revenus',
+        'calc-label': 'Ventes Mensuelles (USD)',
+        'calc-result-label': 'Votre Récompense Mensuelle:',
+        'process-title': 'Comment Rejoindre',
+        'process-desc': 'Étapes simples pour faire partie de notre communauté d\'artistes',
+        'step1-title': 'Créer un Compte',
+        'step1-desc': 'Inscrivez-vous avec votre portfolio et informations d\'artiste',
+        'step2-title': 'Télécharger des Œuvres',
+        'step2-desc': 'Soumettez au moins 30 images haute qualité pour approbation initiale',
+        'step3-title': 'Commencer à Gagner',
+        'step3-desc': 'Commencez votre parcours en trois phases et commencez à gagner des récompenses immédiatement',
+        'success-title': 'Histoires de Succès',
+        'success-desc': 'Vrais artistes, vrais résultats',
+        'story1': '"Le système à trois phases était parfait! J\'ai obtenu mes $30 instantanément après approbation, puis $20 de bonus à $100 de ventes. Maintenant je gagne consistamment $150 en récompenses mensuelles."',
+        'story2': '"J\'ai adoré être récompensé dès le premier jour. Les récompenses de jalons m\'ont gardé motivé pour atteindre chaque phase. Maintenant en phase 3 gagnant consistamment!"',
+        'story3': '"L\'approche structurée m\'a aidé à planifier mes soumissions stratégiquement. Chaque phase s\'est parfaitement construite sur la précédente."',
+        'faq-title': 'Questions Fréquemment Posées',
+        'faq1-q': 'Comment fonctionnent les trois phases?',
+        'faq1-a': 'Phase 1: Soumettre 30+ images approuvées pour récompense instantanée de $30. Phase 2: Atteindre $100 en ventes pour bonus de $20 (validité de 6 mois). Phase 3: Récompenses mensuelles basées sur les niveaux de performance.',
+        'faq2-q': 'Quand les récompenses sont-elles versées?',
+        'faq2-a': 'Les récompenses de Phase 1 sont instantanées à l\'approbation. Les récompenses de Phase 2 sont versées quand le jalon est atteint. Les récompenses de Phase 3 sont calculées mensuellement et versées avant le 5 du mois suivant.',
+        'faq3-q': 'Qu\'est-ce qui compte pour la limite de 500 images?',
+        'faq3-a': 'La limite inclut toutes les images actives dans votre portfolio à travers toutes les phases. Vous pouvez supprimer ou remplacer des images à tout moment, mais le total ne peut pas dépasser 500.',
+        'faq4-q': 'Combien de temps dure la validité de la Phase 2?',
+        'faq4-a': 'La récompense de jalon de Phase 2 est valide pour 6 mois à partir du moment où vous complétez la Phase 1. Vous devez atteindre $100 en ventes cumulatives dans cette période pour gagner le bonus de $20.',
+        'contact-title': 'Prêt à Commencer?',
+        'contact-desc': 'Rejoignez des milliers d\'artistes qui gagnent déjà avec notre programme de récompenses à trois phases',
+        'contact-email-label': 'Support Email',
+        'contact-chat-label': 'Chat en Direct',
+        'contact-chat-desc': 'Disponible 24/7 pour le support des artistes',
+        'contact-guide-label': 'Guide de Démarrage',
+        'contact-guide-desc': 'Documentation complète',
+        'footer-text': '© 2024 Programme de Récompenses des Artistes. Autonomiser la créativité grâce à des récompenses structurées et une compensation équitable.'
+      }
+    };
+
+    // Initialize chart
+    let rewardChart;
+
+    function initChart() {
+      const ctx = document.getElementById('rewardChart').getContext('2d');
+      rewardChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['$0-199', '$200-499', '$500-999', '$1000+'],
+          datasets: [{
+            label: 'Reward Amount ($)',
+            data: [0, 30, 80, 150],
+            backgroundColor: [
+              '#9CA3AF',
+              '#3B82F6', 
+              '#EAB308',
+              '#8B5CF6'
+            ],
+            borderColor: [
+              '#6B7280',
+              '#2563EB',
+              '#CA8A04', 
+              '#7C3AED'
+            ],
+            borderWidth: 2,
+            borderRadius: 8
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: function(value) {
+                  return '$' + value;
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function changeLang(lang) {
+      const t = translations[lang];
+      for (const [key, value] of Object.entries(t)) {
+        const element = document.getElementById(key);
+        if (element) {
+          element.textContent = value;
+        }
+      }
+
+      // Update placeholder
+      const salesInput = document.getElementById('salesInput');
+      if (salesInput) {
+        const placeholders = {
+          en: 'Enter your monthly sales',
+          zh: '输入您的月销售额',
+          es: 'Ingresa tus ventas mensuales',
+          fr: 'Entrez vos ventes mensuelles'
+        };
+        salesInput.placeholder = placeholders[lang];
+      }
+    }
+
+    function calculateReward() {
+      const sales = parseFloat(document.getElementById('salesInput').value) || 0;
+      let reward = 0;
+
+      if (sales >= 1000) {
+        reward = 150;
+      } else if (sales >= 500) {
+        reward = 80;
+      } else if (sales >= 200) {
+        reward = 30;
+      }
+
+      document.getElementById('rewardResult').textContent = '$' + reward;
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+      initChart();
+      changeLang('en');
+    });
+  </script>
+</body>
+</html>
+    <script id="html_badge_script1">
+        window.__genspark_remove_badge_link = "https://www.genspark.ai/api/html_badge/" +
+            "remove_badge?token=To%2FBnjzloZ3UfQdcSaYfDm1KfkXhfn0zn1IA%2B9OTuA%2F0cpYOTx540pWrG%2BBpOXFWJm8lXMrMUXNhUC5sVZv10XRMUG71AtkdWFzKtlXzHs%2F5%2FhOLl4heX8e8GgBLtWXsVzVEm4BfwEhhrgUuDMyf2Ta8C2C6PdyAKFFST2KENFvwPvfY3muGkvtvfLc5BzdoB4y%2BGdRmlAgOFDJ0eYMRPy7Zjj85Tj4VNHApKKTLqT0PPilZskjh1vlSr5VR4gU1QopL4D0okUu8IK4zQV9qX5jMlbGbREB%2FSei3QHEefFI4Mjl7bEgxpFB9yt6rqx4pudHRvEzrM63d1DLmw0sEeiwofcG%2Bjxfw22ap5WBVHNBW7fRvP7jqwdpLYoFH6VLihhJ3hWeXYsGbMlU%2Bu1K%2BCNWsz6yEnfOPCfIItJPBV5d997oqc55qbPL%2BLQLIyzkKQ2b8MwLa9itrxkuC7%2BRd3A8pGDDkeIa6dVyNZwlCFVGyuJVgXhK%2BKEQYbbnegmEB%2Bk%2BHhcsPV%2FH5F8686CMfdNQuXf%2BrEhhZjsJJD4oXuuM%3D";
+        window.__genspark_locale = "zh-CN";
+        window.__genspark_token = "To/BnjzloZ3UfQdcSaYfDm1KfkXhfn0zn1IA+9OTuA/0cpYOTx540pWrG+BpOXFWJm8lXMrMUXNhUC5sVZv10XRMUG71AtkdWFzKtlXzHs/5/hOLl4heX8e8GgBLtWXsVzVEm4BfwEhhrgUuDMyf2Ta8C2C6PdyAKFFST2KENFvwPvfY3muGkvtvfLc5BzdoB4y+GdRmlAgOFDJ0eYMRPy7Zjj85Tj4VNHApKKTLqT0PPilZskjh1vlSr5VR4gU1QopL4D0okUu8IK4zQV9qX5jMlbGbREB/Sei3QHEefFI4Mjl7bEgxpFB9yt6rqx4pudHRvEzrM63d1DLmw0sEeiwofcG+jxfw22ap5WBVHNBW7fRvP7jqwdpLYoFH6VLihhJ3hWeXYsGbMlU+u1K+CNWsz6yEnfOPCfIItJPBV5d997oqc55qbPL+LQLIyzkKQ2b8MwLa9itrxkuC7+Rd3A8pGDDkeIa6dVyNZwlCFVGyuJVgXhK+KEQYbbnegmEB+k+HhcsPV/H5F8686CMfdNQuXf+rEhhZjsJJD4oXuuM=";
+    </script>
+    
+    <script id="html_notice_dialog_script" src="https://www.genspark.ai/notice_dialog.js"></script>
+    
